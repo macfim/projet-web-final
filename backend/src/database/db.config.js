@@ -9,6 +9,6 @@ mongoose.set("strictQuery", false);
 db.mongoose = mongoose;
 db.url = config.DB_URL;
 
-db.posts = require("../api/models/post.model.js")(mongoose);
+db.articles = require("../api/models/article.model.js")(mongoose);
 
 module.exports = db;

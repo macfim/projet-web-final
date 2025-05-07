@@ -1,12 +1,13 @@
 module.exports = (app) => {
   const router = require("express").Router();
-  const postController = require("../controllers/post.controller");
+  const articleController = require("../controllers/article.controller");
 
-  router.post("/posts", postController.create);
-  router.get("/posts", postController.findAll);
-  router.delete("/posts/:id", postController.delete);
-  router.get("/posts/:id", postController.findOne);
-  router.put("/posts/:id", postController.update);
+  // Article routes
+  router.post("/articles", articleController.create);
+  router.get("/articles", articleController.findAll);
+  router.get("/articles/:id", articleController.findOne);
+  router.put("/articles/:id", articleController.update);
+  router.delete("/articles/:id", articleController.delete);
 
   app.use("/api/", router);
 };
