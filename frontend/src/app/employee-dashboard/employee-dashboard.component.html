@@ -1,13 +1,13 @@
 <nav class="navbar navbar-light bg-primary">
   <div class="container-fluid">
-    <h1 style="color: aliceblue">AngularCRUD</h1>
+    <h1 style="color: aliceblue">Articles Management</h1>
     <div class="d-flex">
       <button
         class="btn btn-primary"
         data-toggle="modal"
         data-target="#staticBackdrop"
       >
-        Add Employee
+        Add Article
       </button>
     </div>
   </div>
@@ -16,37 +16,30 @@
 <table class="table mt-3">
   <thead>
     <tr>
-      <th scope="col">Employee ID</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Email ID</th>
-      <th scope="col">Mobile ID</th>
-      <th scope="col">Salary</th>
+      <th scope="col">Article ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of employeeData">
-      <td>{{ row.id }}</td>
-      <td>{{ row.firstName }}</td>
-      <td>{{ row.lastName }}</td>
-      <td>{{ row.email }}</td>
-      <td>{{ row.mobile }}</td>
-      <td>{{ row.salary }}</td>
+    <tr *ngFor="let row of articlesData">
+      <td>{{ row._id }}</td>
+      <td>{{ row.nomArticle }}</td>
+      <td>{{ row.description }}</td>
       <td>
         <button
           type="button"
           (click)="onEdit(row)"
           data-toggle="modal"
-          data-
-          target="#staticBackdrop"
+          data-target="#staticBackdrop"
           class="btn btn-info"
         >
           Edit
         </button>
         <button
           type="button"
-          (click)="deleteEmployee(row)"
+          (click)="deleteArticle(row)"
           class="btn btn-danger"
         >
           Delete
@@ -59,24 +52,21 @@
 <div
   class="modal fade"
   id="staticBackdrop"
-  data-
-  backdrop="static"
+  data-backdrop="static"
   tabindex="-1"
   role="dialog"
-  aria-
-  labelledby="staticBackdropLabel"
+  aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal- title" id="staticBackdropLabel">Employee Details</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Article Details</h5>
         <button
           type="button"
           class="close"
           data-dismiss="modal"
-          aria-
-          label="Close"
+          aria-label="Close"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -84,50 +74,22 @@
       <div class="modal-body">
         <form [formGroup]="formValue">
           <div class="mb-3">
-            <label for="FirstName" class="form-label">First Name</label>
+            <label for="nomArticle" class="form-label">Article Name</label>
             <input
               type="text"
               class="form-control"
-              formControlName="firstName"
-              id="firstName"
+              formControlName="nomArticle"
+              id="nomArticle"
             />
           </div>
           <div class="mb-3">
-            <label for="LastName" class="form-label">Last Name</label>
-            CHOUCHEN MOHAMED HEIKEL 4
-            <input
-              type="text"
+            <label for="description" class="form-label">Description</label>
+            <textarea
               class="form-control"
-              formControlName="lastName"
-              id="lastName"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              formControlName="email"
-              id="email"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="LastName" class="form-label">Mobile Number</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="mobile"
-              id="mobile"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="salary" class="form-label">Salary</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="salary"
-              id="salary"
-            />
+              formControlName="description"
+              id="description"
+              rows="3"
+            ></textarea>
           </div>
         </form>
       </div>
@@ -137,14 +99,14 @@
         </button>
         <button
           type="button"
-          (click)="postEmployeeDetails()"
+          (click)="postArticleDetails()"
           class="btn btn-primary"
         >
           Add
         </button>
         <button
           type="button"
-          (click)="updateEmployeeDetails()"
+          (click)="updateArticleDetails()"
           class="btn btn-warning"
         >
           Update

@@ -7,8 +7,8 @@ import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashbo
   standalone: true,
   imports: [RouterOutlet, EmployeeDashboardComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'AngularCRUD';
+  title = 'Articles Management';
 }

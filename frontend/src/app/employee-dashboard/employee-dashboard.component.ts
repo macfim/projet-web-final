@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeModal } from './employee-dashboard.modal';
+import { ArticleModel } from './employee-dashboard.modal';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,79 +15,63 @@ import { CommonModule } from '@angular/common';
 })
 export class EmployeeDashboardComponent implements OnInit {
   formValue!: FormGroup;
-  employeeModelObj: EmployeeModal = new EmployeeModal();
-  employeeData!: any;
-  currentMaxId: number = 0;
+  articleModelObj: ArticleModel = new ArticleModel();
+  articlesData!: any;
 
   constructor(private formBuilder: FormBuilder, private api: ApiService) {}
 
   ngOnInit() {
     this.formValue = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      mobile: [''],
-      salary: [''],
+      nomArticle: [''],
+      description: [''],
     });
-    this.getAllEmployee();
+    this.getAllArticles();
   }
 
-  getAllEmployee() {
-    this.api.getALLEmployee().subscribe((res) => {
-      this.employeeData = res;
+  getAllArticles() {
+    this.api.getAllArticles().subscribe((res) => {
+      this.articlesData = res;
     });
   }
 
-  deleteEmployee(row: any) {
-    this.api.deleteEmployee(row.id).subscribe((res) => {
-      alert('Employee deleted successfully');
-      this.getAllEmployee();
+  deleteArticle(row: any) {
+    this.api.deleteArticle(row._id).subscribe((res) => {
+      alert('Article deleted successfully');
+      this.getAllArticles();
     });
   }
 
   onEdit(row: any) {
-    this.employeeModelObj.id = row.id;
-    this.formValue.controls['firstName'].setValue(row.firstName);
-    this.formValue.controls['lastName'].setValue(row.lastName);
-    this.formValue.controls['email'].setValue(row.email);
-    this.formValue.controls['mobile'].setValue(row.mobile);
-    this.formValue.controls['salary'].setValue(row.salary);
+    this.articleModelObj._id = row._id;
+    this.formValue.controls['nomArticle'].setValue(row.nomArticle);
+    this.formValue.controls['description'].setValue(row.description);
   }
 
-  updateEmployeeDetails() {
-    this.employeeModelObj.firstName = this.formValue.value.firstName;
-    this.employeeModelObj.lastName = this.formValue.value.lastName;
-    this.employeeModelObj.lastName = this.formValue.value.lastName;
-    this.employeeModelObj.email = this.formValue.value.email;
-    this.employeeModelObj.mobile = this.formValue.value.mobile;
-    this.employeeModelObj.salary = this.formValue.value.salary;
+  updateArticleDetails() {
+    this.articleModelObj.nomArticle = this.formValue.value.nomArticle;
+    this.articleModelObj.description = this.formValue.value.description;
 
     this.api
-      .updateEmployee(this.employeeModelObj, this.employeeModelObj.id)
+      .updateArticle(this.articleModelObj, this.articleModelObj._id)
       .subscribe((res) => {
         alert('Update successful');
-        this.getAllEmployee();
+        this.getAllArticles();
       });
   }
 
-  postEmployeeDetails() {
-    this.employeeModelObj.firstName = this.formValue.value.firstName;
-    this.employeeModelObj.lastName = this.formValue.value.lastName;
-    this.employeeModelObj.email = this.formValue.value.email;
-    this.employeeModelObj.mobile = this.formValue.value.mobile;
-    this.employeeModelObj.salary = this.formValue.value.salary;
-    // Générer un ID unique pour le nouvel employé en incrémentant un compteur
-    this.employeeModelObj.id = ++this.currentMaxId;
-    // Incrémenter le compteur à chaque ajout
-    this.api.postEmployee(this.employeeModelObj).subscribe(
+  postArticleDetails() {
+    this.articleModelObj.nomArticle = this.formValue.value.nomArticle;
+    this.articleModelObj.description = this.formValue.value.description;
+
+    this.api.postArticle(this.articleModelObj).subscribe(
       (res) => {
         console.log(res);
-        alert('employee added successfully');
+        alert('Article added successfully');
         this.formValue.reset();
-        this.getAllEmployee();
+        this.getAllArticles();
       },
       (err) => {
-        alert('something went wrong');
+        alert('Something went wrong');
       }
     );
   }

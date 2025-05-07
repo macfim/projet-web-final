@@ -1,8 +1,5 @@
-export class EmployeeModal {
-  id: number = 0;
-  firstName: string = '';
-  lastName: string = '';
-  email: string = '';
-  mobile: string = '';
-  salary: number = 0;
+export class ArticleModel {
+  _id: string = '';
+  nomArticle: string = '';
+  description: string = '';
 }

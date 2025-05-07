@@ -6,35 +6,33 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
+  private apiUrl = 'http://localhost:3000/api/articles';
+
   constructor(private http: HttpClient) {}
 
-  postEmployee(data: any) {
+  postArticle(data: any) {
+    return this.http.post<any>(this.apiUrl, data).pipe(map((res: any) => res));
+  }
+
+  getArticle(id: string) {
     return this.http
-      .post<any>('http://localhost:3000/posts', data)
+      .get<any>(`${this.apiUrl}/${id}`)
       .pipe(map((res: any) => res));
   }
 
-  getEmployee(data: any) {
+  getAllArticles() {
+    return this.http.get<any>(this.apiUrl).pipe(map((res: any) => res));
+  }
+
+  deleteArticle(id: string) {
     return this.http
-      .get<any>('http://localhost:3000/posts')
+      .delete<any>(`${this.apiUrl}/${id}`)
       .pipe(map((res: any) => res));
   }
 
-  getALLEmployee() {
+  updateArticle(data: any, id: string) {
     return this.http
-      .get<any>('http://localhost:3000/posts')
-      .pipe(map((res: any) => res));
-  }
-
-  deleteEmployee(id: number) {
-    return this.http
-      .delete<any>('http://localhost:3000/posts/' + id)
-      .pipe(map((res: any) => res));
-  }
-
-  updateEmployee(data: any, id: number) {
-    return this.http
-      .put<any>('http://localhost:3000/posts/' + id, data)
+      .put<any>(`${this.apiUrl}/${id}`, data)
       .pipe(map((res: any) => res));
   }
 }
