@@ -1,0 +1,18 @@
+meta {
+  name: Update Article
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/api/artitcles
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nomArticle": "",
+    "description": ""
+  }
+}
