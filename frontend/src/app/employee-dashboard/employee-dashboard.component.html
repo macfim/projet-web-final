@@ -1,75 +1,84 @@
-<nav class="navbar navbar-light bg-primary">
+<nav class="navbar">
   <div class="container-fluid">
-    <h1 style="color: aliceblue">Articles Management</h1>
+    <h1>Articles Management</h1>
     <div class="d-flex">
       <button
         class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#staticBackdrop"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        (click)="formValue.reset(); showAdd = true; showUpdate = false"
       >
-        Add Article
+        <i class="fas fa-plus me-2"></i> Add Article
       </button>
     </div>
   </div>
 </nav>
 
-<table class="table mt-3">
-  <thead>
-    <tr>
-      <th scope="col">Article ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of articlesData">
-      <td>{{ row._id }}</td>
-      <td>{{ row.nomArticle }}</td>
-      <td>{{ row.description }}</td>
-      <td>
-        <button
-          type="button"
-          (click)="onEdit(row)"
-          data-toggle="modal"
-          data-target="#staticBackdrop"
-          class="btn btn-info"
-        >
-          Edit
-        </button>
-        <button
-          type="button"
-          (click)="deleteArticle(row)"
-          class="btn btn-danger"
-        >
-          Delete
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="page-container">
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th scope="col">Article ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of articlesData">
+            <td>{{ row._id }}</td>
+            <td>{{ row.nomArticle }}</td>
+            <td>{{ row.description }}</td>
+            <td class="text-center">
+              <div class="action-buttons">
+                <button
+                  type="button"
+                  (click)="onEdit(row)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  class="btn btn-info"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="deleteArticle(row)"
+                  class="btn btn-danger"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!articlesData || articlesData.length === 0">
+            <td colspan="4" class="text-center py-4">No articles found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <div
   class="modal fade"
   id="staticBackdrop"
-  data-backdrop="static"
+  data-bs-backdrop="static"
   tabindex="-1"
-  role="dialog"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Article Details</h5>
         <button
           type="button"
-          class="close"
-          data-dismiss="modal"
+          class="btn-close"
+          data-bs-dismiss="modal"
           aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
+        ></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="formValue">
@@ -80,6 +89,7 @@
               class="form-control"
               formControlName="nomArticle"
               id="nomArticle"
+              placeholder="Enter article name"
             />
           </div>
           <div class="mb-3">
@@ -89,25 +99,30 @@
               formControlName="description"
               id="description"
               rows="3"
+              placeholder="Enter article description"
             ></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
         <button
           type="button"
           (click)="postArticleDetails()"
           class="btn btn-primary"
+          *ngIf="showAdd"
+          data-bs-dismiss="modal"
         >
           Add
         </button>
         <button
           type="button"
           (click)="updateArticleDetails()"
-          class="btn btn-warning"
+          class="btn btn-primary"
+          *ngIf="showUpdate"
+          data-bs-dismiss="modal"
         >
           Update
         </button>

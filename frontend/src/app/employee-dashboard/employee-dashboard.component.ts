@@ -17,6 +17,8 @@ export class EmployeeDashboardComponent implements OnInit {
   formValue!: FormGroup;
   articleModelObj: ArticleModel = new ArticleModel();
   articlesData!: any;
+  showAdd: boolean = true;
+  showUpdate: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private api: ApiService) {}
 
@@ -42,6 +44,8 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   onEdit(row: any) {
+    this.showAdd = false;
+    this.showUpdate = true;
     this.articleModelObj._id = row._id;
     this.formValue.controls['nomArticle'].setValue(row.nomArticle);
     this.formValue.controls['description'].setValue(row.description);
@@ -55,6 +59,9 @@ export class EmployeeDashboardComponent implements OnInit {
       .updateArticle(this.articleModelObj, this.articleModelObj._id)
       .subscribe((res) => {
         alert('Update successful');
+        this.formValue.reset();
+        this.showAdd = true;
+        this.showUpdate = false;
         this.getAllArticles();
       });
   }
