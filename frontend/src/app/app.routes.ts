@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
+import { ArticleDashboardComponent } from './article-dashboard/article-dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: EmployeeDashboardComponent },
-  { path: 'articles', component: EmployeeDashboardComponent },
+  { path: '', component: ArticleDashboardComponent },
+  { path: 'articles', component: ArticleDashboardComponent },
 ];

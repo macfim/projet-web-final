@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ArticleModel } from './employee-dashboard.modal';
+import { ArticleModel } from './article-dashboard.modal';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-employee-dashboard',
+  selector: 'app-article-dashboard',
   standalone: true,
   imports: [ReactiveFormsModule, HttpClientModule, CommonModule],
-  templateUrl: './employee-dashboard.component.html',
-  styleUrl: './employee-dashboard.component.css',
+  templateUrl: './article-dashboard.component.html',
+  styleUrl: './article-dashboard.component.css',
   providers: [ApiService],
 })
-export class EmployeeDashboardComponent implements OnInit {
+export class ArticleDashboardComponent implements OnInit {
   formValue!: FormGroup;
   articleModelObj: ArticleModel = new ArticleModel();
   articlesData!: any;
